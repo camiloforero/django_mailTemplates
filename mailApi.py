@@ -26,6 +26,8 @@ class MailApi():
         email.to = recipients
         email.cc = cc
         email.bcc = bcc
+        for attachment in self.email_object.attachments.all():
+            email.attach("%s.%s" % (attachment.name, attachment.fileAttachment.file.name.split(".")[-1]), attachment.fileAttachment.file.read())
         for attachment in attachments:
             email.attach(attachment['filename'].encode('ascii', 'ignore'), attachment['data'])
         return email.send()
