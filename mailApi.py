@@ -9,7 +9,12 @@ class MailApi():
         email_object = models.Email.objects.get(name=name) #TODO Excepción si no existe
         self.email_object = email_object #TODO: Hacer pruebas de eficiencia
 
-    def send_mail(self, sender, recipients, context=None, cc=None, bcc=None, sender_name=None, attachments=None):
+    def send_mail(self, sender, recipients, context=None, cc=None, bcc=None, sender_name="", attachments=None):
+        """
+        This method sends the mail with the given parameters, replacing any variable fields with those in the context
+        """
+        if isinstance(recipients, basestring):
+            recipients = [recipients]#To avoid exceptions in case there is a single recipient
         if cc is None:
             cc = [] 
         if bcc is None:
@@ -22,7 +27,7 @@ class MailApi():
         email.subject = Template(self.email_object.subject).render(Context(context))
         email.body = plainBody
         email.attach_alternative(htmlBody, 'text/html')
-        email.from_email=sender
+        email.from_email="%s <%s>" %(sender_name, sender)
         email.to = recipients
         email.cc = cc
         email.bcc = bcc
