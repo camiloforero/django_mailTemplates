@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from tinymce.models import HTMLField
 
 class Email(models.Model):
     """
@@ -12,7 +13,7 @@ class Email(models.Model):
     name = models.CharField(max_length=64, unique=True) #TODO: help_text and create an index on this field
     subject = models.CharField(max_length=128)
     plainBody = models.TextField()
-    htmlBody = models.TextField(blank=True, null=True)
+    htmlBody = HTMLField(blank=True, null=True)
     campaignName = models.CharField(blank=True, null=True, max_length = 32) #TODO: leer sobre campañas en mailgun, ver el tamaño máximo, agregar texto de ayuda
     tags = models.CharField(blank=True, null=True, max_length=64, help_text="Insert all tags separated by a comma.")
     def __str__(self):
