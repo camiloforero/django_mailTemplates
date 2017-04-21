@@ -12,4 +12,4 @@ Add tinymce.urls to urls.py (https://github.com/aljosa/django-tinymce)
 Add the following to the project settings
 DJANGO_WYSIWYG_FLAVOR = "tinymce"    # or "tinymce_advanced"
 
-
+Parameters in the send_mail functions such as cc, bcc and recipients cannot be a string, they must be a list

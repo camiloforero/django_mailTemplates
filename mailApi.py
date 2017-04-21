@@ -13,8 +13,6 @@ class MailApi():
         """
         This method sends the mail with the given parameters, replacing any variable fields with those in the context
         """
-        if isinstance(recipients, basestring):
-            recipients = [recipients]#To avoid exceptions in case there is a single recipient
         if cc is None:
             cc = [] 
         if bcc is None:
