@@ -33,4 +33,6 @@ class MailApi():
             email.attach("%s.%s" % (attachment.name, attachment.fileAttachment.file.name.split(".")[-1]), attachment.fileAttachment.file.read())
         for attachment in attachments:
             email.attach(attachment['filename'].encode('ascii', 'ignore'), attachment['data'])
+        email.tags = map(unicode.strip, self.email_object.tags.split(','))
+        email.track_clicks = True
         return email.send()
